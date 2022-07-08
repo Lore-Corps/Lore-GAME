@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=1]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Button
+
+export (PackedScene) var enemy_scene
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var health
+var enemy
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	enemy = enemy_scene.instance()
+	self.add_child(enemy)
+	enemy.health = enemy.health
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Fight_pressed():
+	print(\"I attacked for one damage\")
+	health -= 1
+	print(health)
+	pass # Replace with function body.
+"
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Fight" type="Button" parent="."]
+anchor_right = 0.183
+anchor_bottom = 0.147
+margin_left = 37.0
+margin_top = 442.0
+margin_right = 80.0
+margin_bottom = 462.0
+theme = SubResource( 1 )
+text = "Fight"
+script = SubResource( 2 )
+enemy_scene = ExtResource( 1 )
+
+[connection signal="pressed" from="Fight" to="Fight" method="_on_Fight_pressed"]

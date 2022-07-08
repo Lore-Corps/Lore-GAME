@@ -1,0 +1,215 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/icon.png" type="Texture" id=1]
+[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/ReactionTest.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/BattleController.gd" type="Script" id=5]
+
+[sub_resource type="TileSet" id=1]
+0/name = "icon.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 52, 13, 4, 11 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "icon.png 1"
+1/texture = ExtResource( 1 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 32, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "icon.png 2"
+2/texture = ExtResource( 1 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 31, 51, 14, 7 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "icon.png 3"
+3/texture = ExtResource( 1 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 56, 18, 12, 24 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "icon.png 4"
+4/texture = ExtResource( 1 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 32, -32, 32, 32 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "icon.png 5"
+5/texture = ExtResource( 1 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 1, 35, 10, 8 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "icon.png 6"
+6/texture = ExtResource( 1 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 96, 32, 32, 32 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
+7/name = "icon.png 7"
+7/texture = ExtResource( 1 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 128, 0, 32, 32 )
+7/tile_mode = 0
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shape_offset = Vector2( 0, 0 )
+7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape_one_way = false
+7/shape_one_way_margin = 0.0
+7/shapes = [  ]
+7/z_index = 0
+8/name = "icon.png 8"
+8/texture = ExtResource( 1 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 0, 0, 32, 32 )
+8/tile_mode = 0
+8/occluder_offset = Vector2( 0, 0 )
+8/navigation_offset = Vector2( 0, 0 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape_one_way = false
+8/shape_one_way_margin = 0.0
+8/shapes = [  ]
+8/z_index = 0
+
+[node name="Battle" type="Node2D"]
+script = ExtResource( 5 )
+playerScene = ExtResource( 2 )
+enemyScene = ExtResource( 4 )
+reactionScene = ExtResource( 3 )
+
+[node name="BattleCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Actions" type="Control" parent="BattleCanvasLayer"]
+process_priority = -1
+light_mask = 8
+anchor_left = 0.052
+anchor_top = 0.816
+anchor_right = 0.166
+anchor_bottom = 0.881
+margin_left = 71.752
+margin_top = -39.6
+margin_right = 205.016
+margin_bottom = 21.4
+
+[node name="Attack" type="Button" parent="BattleCanvasLayer/Actions"]
+show_behind_parent = true
+margin_right = 250.0
+margin_bottom = 50.0
+text = "Attack"
+
+[node name="DelayAttack" type="Button" parent="BattleCanvasLayer/Actions"]
+show_behind_parent = true
+margin_top = 50.0
+margin_right = 250.0
+margin_bottom = 100.0
+text = "Delayed Attack"
+
+[node name="trackTurns" type="RichTextLabel" parent="BattleCanvasLayer"]
+light_mask = 863
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.1
+margin_left = -100.0
+margin_top = 50.0
+margin_right = 100.0
+margin_bottom = 50.0
+rect_clip_content = false
+text = "You will not see this"
+
+[node name="Panel" type="Panel" parent="BattleCanvasLayer/trackTurns"]
+show_behind_parent = true
+margin_left = -19.0
+margin_top = -22.0
+margin_right = 181.0
+margin_bottom = 38.0
+
+[node name="BattleEnd" type="Control" parent="BattleCanvasLayer"]
+visible = false
+margin_left = 400.0
+margin_top = 200.0
+margin_right = 650.0
+margin_bottom = 350.0
+
+[node name="ResetButton" type="Button" parent="BattleCanvasLayer/BattleEnd"]
+margin_right = 250.0
+margin_bottom = 150.0
+
+[node name="ResetButtonLabel" type="Label" parent="BattleCanvasLayer/BattleEnd"]
+margin_right = 250.0
+margin_bottom = 150.0
+align = 1
+valign = 1
+autowrap = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 1 )
+format = 1
+tile_data = PoolIntArray( -131071, 4, 0, -131070, 4, 0, -131061, 4, 0, -131060, 6, 0, -131059, 4, 0, -131058, 6, 0, -131057, 4, 0, -65536, 6, 0, -65535, 4, 0, -65534, 6, 0, -65533, 4, 0, -65532, 4, 0, -65531, 6, 0, -65530, 4, 0, -65529, 6, 0, -65527, 4, 0, -65526, 6, 0, -65525, 4, 0, -65524, 6, 0, -65523, 4, 0, -65522, 4, 0, -65521, 4, 0, 0, 6, 0, 1, 4, 0, 2, 6, 0, 3, 4, 0, 4, 6, 0, 5, 6, 0, 6, 4, 0, 7, 6, 0, 8, 6, 0, 9, 4, 0, 10, 6, 0, 11, 4, 0, 12, 6, 0, 13, 6, 0, 14, 4, 0, 15, 4, 0, 65536, 6, 0, 65537, 4, 0, 65538, 6, 0, 65539, 4, 0, 65540, 6, 0, 65541, 6, 0, 65542, 4, 0, 65543, 6, 0, 65544, 6, 0, 65545, 4, 0, 65546, 6, 0, 65547, 4, 0, 65548, 6, 0, 65549, 6, 0, 65550, 6, 0, 65551, 4, 0, 131072, 6, 0, 131073, 4, 0, 131074, 6, 0, 131075, 4, 0, 131076, 4, 0, 131077, 6, 0, 131078, 4, 0, 131079, 6, 0, 131080, 6, 0, 131081, 4, 0, 131082, 6, 0, 131083, 4, 0, 131084, 6, 0, 131085, 6, 0, 131086, 6, 0, 131087, 4, 0, 131088, 6, 0, 196608, 6, 0, 196609, 4, 0, 196610, 6, 0, 196611, 4, 0, 196612, 4, 0, 196613, 6, 0, 196614, 4, 0, 196615, 6, 0, 196616, 6, 0, 196617, 4, 0, 196618, 6, 0, 196619, 4, 0, 196620, 6, 0, 196621, 6, 0, 196622, 6, 0, 196623, 4, 0, 196624, 4, 0, 262144, 6, 0, 262145, 4, 0, 262146, 6, 0, 262147, 4, 0, 262148, 4, 0, 262149, 6, 0, 262150, 4, 0, 262151, 6, 0, 262152, 6, 0, 262153, 4, 0, 262154, 6, 0, 262155, 4, 0, 262156, 6, 0, 262157, 6, 0, 262158, 6, 0, 262159, 4, 0, 262160, 4, 0, 262161, 4, 0, 393215, 6, 0, 327680, 6, 0, 327681, 4, 0, 327682, 6, 0, 327683, 4, 0, 327684, 4, 0, 327685, 6, 0, 327686, 4, 0, 327687, 6, 0, 327688, 6, 0, 327689, 4, 0, 327690, 6, 0, 327691, 4, 0, 327692, 6, 0, 327693, 4, 0, 327694, 6, 0, 327695, 4, 0, 327696, 4, 0, 327697, 4, 0, 458751, 6, 0, 393216, 6, 0, 393217, 4, 0, 393218, 6, 0, 393219, 4, 0, 393220, 4, 0, 393221, 6, 0, 393222, 4, 0, 393223, 6, 0, 393224, 6, 0, 393225, 4, 0, 393226, 6, 0, 393227, 4, 0, 393228, 6, 0, 393229, 4, 0, 393230, 6, 0, 393231, 4, 0, 393232, 4, 0, 393233, 4, 0, 524287, 4, 0, 458752, 6, 0, 458753, 4, 0, 458754, 6, 0, 458755, 4, 0, 458756, 4, 0, 458757, 6, 0, 458758, 4, 0, 458759, 6, 0, 458760, 4, 0, 458761, 4, 0, 458762, 6, 0, 458763, 4, 0, 458764, 6, 0, 458765, 4, 0, 458766, 6, 0, 458767, 4, 0, 458768, 4, 0, 458769, 4, 0, 589823, 4, 0, 524288, 6, 0, 524289, 4, 0, 524290, 6, 0, 524291, 4, 0, 524292, 4, 0, 524293, 6, 0, 524294, 4, 0, 524295, 6, 0, 524296, 4, 0, 524297, 4, 0, 524298, 6, 0, 524299, 4, 0, 524300, 6, 0, 524301, 4, 0, 524302, 6, 0, 524303, 4, 0, 524304, 4, 0, 655359, 4, 0, 589824, 6, 0, 589825, 4, 0, 589826, 6, 0, 589827, 4, 0, 589828, 4, 0, 589829, 6, 0, 589830, 4, 0, 589831, 6, 0, 589832, 6, 0, 589833, 4, 0, 589834, 6, 0, 589835, 4, 0, 589836, 6, 0, 589837, 4, 0, 589838, 6, 0, 589839, 4, 0, 589840, 4, 0, 720895, 4, 0, 655360, 6, 0, 655361, 4, 0, 655362, 4, 0, 655363, 4, 0, 655364, 4, 0, 655365, 4, 0, 655366, 4, 0, 655367, 6, 0, 655368, 6, 0, 655369, 4, 0, 655370, 6, 0, 655371, 6, 0, 655372, 6, 0, 655373, 6, 0, 655374, 6, 0, 655375, 4, 0, 786431, 4, 0, 720896, 4, 0, 720897, 4, 0, 720898, 4, 0, 720901, 4, 0, 720902, 4, 0, 720903, 6, 0, 720904, 6, 0, 720905, 4, 0, 720906, 6, 0, 720907, 6, 0, 720910, 6, 0, 786440, 4, 0, 786441, 5, 0 )
+
+[connection signal="pressed" from="BattleCanvasLayer/Actions/Attack" to="." method="_on_Attack_pressed"]
+[connection signal="pressed" from="BattleCanvasLayer/Actions/DelayAttack" to="." method="_on_DelayAttackl_pressed"]
+[connection signal="draw" from="BattleCanvasLayer/trackTurns" to="." method="_on_trackTurns_draw"]
+[connection signal="pressed" from="BattleCanvasLayer/BattleEnd/ResetButton" to="." method="_on_ResetButton_pressed"]
