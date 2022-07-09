@@ -24,7 +24,7 @@ var rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	# For loop executes 3 times and registers players, x var does nothing
-	for x in 3:
+	for x in 1:
 		register_battler(player_scene)
 		register_battler(enemy_scene)
 
@@ -90,8 +90,8 @@ func start_battle() -> void:
 
 				if battler.alignment == "evil":
 					$BattleCanvasLayer/Actions.visible = false
-					ai_logic_for_turn(battler)
 					yield(get_tree().create_timer(1.0), "timeout")
+					ai_logic_for_turn(battler)
 
 				battler.deactivate()
 
@@ -245,13 +245,16 @@ func _on_Actions_visibility_changed() -> void:
 
 func _on_ResetButton_pressed() -> void:
 	$BattleCanvasLayer/BattleEnd.visible = false
-	for battler in all_battlers:
-		battler.queue_free()
-	#battler_turn_index = 0
-	good_battlers = []
-	evil_battlers = []
-	all_battlers = []
-	_ready()
+	if $ReactionTest.type_of_attack == 0:
+		for battler in all_battlers:
+			battler.queue_free()
+		#battler_turn_index = 0
+		good_battlers = []
+		evil_battlers = []
+		all_battlers = []
+		_ready()
+	else:
+		print("Please wait")
 
 
 func _on_ReactionTest_reaction_test_done():
