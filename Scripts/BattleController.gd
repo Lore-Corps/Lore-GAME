@@ -1,30 +1,33 @@
 extends Node2D
 
+# ----- signals -----
+# ----- enums -----
+# ----- constants -----
+# Must be greater than 0
+var MAXIMUM_TEAM_SIZE: int = 2
+
+# ----- exported vars -----
 export(PackedScene) var player_scene
 export(PackedScene) var enemy_scene
 
-signal dumb_garbage
-
+# ----- public vars -----
 var reaction: Node
-
 var good_battlers: Array
 var evil_battlers: Array
 var all_battlers: Array
-
-var MAXIMUM_TEAM_SIZE: int = 3
-
-var attack_reaction_test_running: bool = false
-var delayed_reaction_test_running: bool = false
-
+var reaction_test_delta: float
 var random_color: Color
 var color_timer: float
-
 var rng := RandomNumberGenerator.new()
 
+# ----- private vars -----
+# ----- onready vars -----
 
+
+# ----- built-in virtual _ready method -----
 func _ready() -> void:
 	# For loop executes 3 times and registers players, x var does nothing
-	for x in 1:
+	for x in MAXIMUM_TEAM_SIZE:
 		register_battler(player_scene)
 		register_battler(enemy_scene)
 
@@ -32,18 +35,31 @@ func _ready() -> void:
 	start_battle()
 
 
+# ----- remaining built-in virtual methods -----
+func _process(delta) -> void:
+	color_timer += delta
+	if color_timer > 1:
+		random_color = Color(randf(), randf(), randf())
+		color_timer = 0
+		$TileMap.modulate = random_color
+
+
+# ----- public methods -----
 # Turns PackedScenes into instances and pushes them to the team arrays
 func register_battler(battler: PackedScene) -> void:
 	var battler_instance = battler.instance()
-	if good_battlers.size() <= MAXIMUM_TEAM_SIZE:
-		if battler_instance.alignment == "good":
+	if battler_instance.alignment == "good":
+		if good_battlers.size() < MAXIMUM_TEAM_SIZE:
 			good_battlers.push_front(battler_instance)
-		elif battler_instance.alignment == "evil":
+		else:
+			push_error(str("Maximum good team size already reached"))
+	elif battler_instance.alignment == "evil":
+		if evil_battlers.size() < MAXIMUM_TEAM_SIZE:
 			evil_battlers.push_front(battler_instance)
 		else:
-			push_error(str("Invalid Battler Alignment -> ", battler_instance))
+			push_error(str("Maximum good team size already reached"))
 	else:
-		push_error(str("Maximum team size already reached"))
+		push_error(str("Invalid Battler Alignment -> ", battler_instance))
 
 
 # Places PackedScene instances into the battle scene
@@ -84,14 +100,23 @@ func start_battle() -> void:
 			if battler.is_alive == true:
 				battler.activate()
 
-				if battler.alignment == "good":
-					$BattleCanvasLayer/Actions.visible = true
-					yield(self, "dumb_garbage")
+				# For some reason the yields have to be in this function in order
+				# to work. idk why.
 
+				# Player Turn
+				if battler.alignment == "good":
+					$BattleUI/PlayerActions.visible = true
+					yield($ReactionTest, "reaction_test_done")
+					player_logic_for_turn(battler)
+
+				# Evil Turn
 				if battler.alignment == "evil":
-					$BattleCanvasLayer/Actions.visible = false
+					$BattleUI/PlayerActions.visible = false
 					yield(get_tree().create_timer(1.0), "timeout")
 					ai_logic_for_turn(battler)
+
+				if is_team_dead(good_battlers) or is_team_dead(evil_battlers):
+					win_battle(battler)
 
 				battler.deactivate()
 
@@ -113,6 +138,15 @@ func ai_logic_for_turn(battler) -> void:
 		else:
 			print("brad healed")
 			battler.heal()
+
+
+# Governs Player turn logic
+func player_logic_for_turn(battler) -> void:
+	print(battler.char_name)
+	reaction_test_delta = reaction.reaction_delta
+	find_front_target(evil_battlers).take_damage(
+		find_front_target(good_battlers).get_strength() / reaction.reaction_delta
+	)
 
 
 # Finds the front target on a team
@@ -151,58 +185,12 @@ func find_active_target(team: Array) -> BattleEntity:
 	return null
 
 
-func update_turn_tracker_label(battler) -> void:
-	$BattleCanvasLayer/TurnTrackerLabel.text = str("It is ", battler.char_name, " turn.")
-
-
-# The higher Agillity with be first in the Array.
-func sort_by_agility(a: BattleEntity, b: BattleEntity) -> bool:
-	if a.agility > b.agility:
-		return true
-	return false
-
-
-func _on_Attack_pressed() -> void:
-	reaction.type_of_reaction_attack(1)
-	if find_active_target(good_battlers).is_active:
-		attack_reaction_test_running = true
-		reaction.start_timer()
-
-
-func end_battle() -> void:
-	$BattleCanvasLayer/BattleEnd.visible = true
-	if !is_team_dead(good_battlers):
-		$BattleCanvasLayer/BattleEnd/ResetButtonLabel.text = ("You did it!\nYou beat Brad the Madlad and saved the world")
-	else:
-		$BattleCanvasLayer/BattleEnd/ResetButtonLabel.text = ("Brad the Madlad goes on to kill everyone you love, you could've save everyone... \nBut hey! Think of the benifits of being dead. You no longer have to pay off your debts.")
-
-
-func _physics_process(delta) -> void:
-	color_timer += delta
-	if color_timer > 1:
-		random_color = Color(randf(), randf(), randf())
-		color_timer = 0
-		$TileMap.modulate = random_color
-
-	if !$BattleCanvasLayer/BattleEnd.visible:
-		if is_team_dead(good_battlers) or is_team_dead(evil_battlers):
-			end_battle()
-
-		if reaction.visible:
-			$BattleCanvasLayer/Actions.visible = false
-
-		# When the attack button is pressed this goes off once.
-		if attack_reaction_test_running && !reaction.is_running:
-			attack_button_attack()
-			#battler_turn_index += 1
-		if delayed_reaction_test_running && !reaction.is_running:
-			delayed_reaction_test_running = false
-			yield(get_tree().create_timer(0.00001), "timeout")
-			find_front_target(evil_battlers).take_damage(
-				find_front_target(good_battlers).get_strength() / reaction.timer_stopped
-			)
-
-			#battler_turn_index += 1
+func win_battle(winning_team_member: BattleEntity) -> void:
+	$BattleUI/BattleEnd.visible = true
+	if winning_team_member.alignment == "good":
+		$BattleUI/BattleEnd/ResetButtonLabel.text = ("You did it!\nYou beat Brad the Madlad and saved the world")
+	elif winning_team_member.alignment == "evil":
+		$BattleUI/BattleEnd/ResetButtonLabel.text = ("Brad the Madlad goes on to kill everyone you love, you could've save everyone... \nBut hey! Think of the benifits of being dead. You no longer have to pay off your debts.")
 
 
 func is_team_dead(team) -> bool:
@@ -216,39 +204,26 @@ func is_team_dead(team) -> bool:
 		return false
 
 
-func attack_button_attack() -> void:
-	attack_reaction_test_running = false
-	# Yield is so it can grab the number for timer_stopped. If you remove this, it will report 0
-	# for one frame.
-	yield(get_tree().create_timer(0.00001), "timeout")
-	print(reaction.timer_stopped)
-	if reaction.timer_stopped != 0:
-		find_front_target(evil_battlers).take_damage(
-			find_front_target(good_battlers).get_strength() / reaction.timer_stopped
-		)
-	else:
-		print("you are a god.")
-		find_front_target(evil_battlers).current_health = 0
-		pass
-
-
-func _on_DelayAttackl_pressed() -> void:
-	reaction.type_of_reaction_attack(2)
-	if find_active_target(good_battlers).is_active:
-		delayed_reaction_test_running = true
+# ----- private methods -----
+func _on_AttackButton_pressed() -> void:
+	$BattleUI/PlayerActions.visible = false
+	reaction.type_of_reaction_attack(1)
+	if find_active_target(all_battlers).alignment == "good":
 		reaction.start_timer()
 
 
-func _on_Actions_visibility_changed() -> void:
-	pass  # Replace with function body.
+func _on_AttackButtonDelayed_pressed() -> void:
+	$BattleUI/PlayerActions.visible = false
+	reaction.type_of_reaction_attack(2)
+	if find_active_target(good_battlers).is_active:
+		reaction.start_timer()
 
 
 func _on_ResetButton_pressed() -> void:
-	$BattleCanvasLayer/BattleEnd.visible = false
+	$BattleUI/BattleEnd.visible = false
 	if $ReactionTest.type_of_attack == 0:
 		for battler in all_battlers:
 			battler.queue_free()
-		#battler_turn_index = 0
 		good_battlers = []
 		evil_battlers = []
 		all_battlers = []
@@ -257,5 +232,12 @@ func _on_ResetButton_pressed() -> void:
 		print("Please wait")
 
 
-func _on_ReactionTest_reaction_test_done():
-	emit_signal("dumb_garbage")
+# The higher Agillity with be first in the Array.
+func sort_by_agility(a: BattleEntity, b: BattleEntity) -> bool:
+	if a.agility > b.agility:
+		return true
+	return false
+
+
+func update_turn_tracker_label(battler) -> void:
+	$BattleUI/TurnTrackerLabel.text = str("It is ", battler.char_name, " turn.")

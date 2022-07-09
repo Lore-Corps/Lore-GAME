@@ -139,9 +139,9 @@ script = ExtResource( 5 )
 player_scene = ExtResource( 2 )
 enemy_scene = ExtResource( 4 )
 
-[node name="BattleCanvasLayer" type="CanvasLayer" parent="."]
+[node name="BattleUI" type="CanvasLayer" parent="."]
 
-[node name="Actions" type="Control" parent="BattleCanvasLayer"]
+[node name="PlayerActions" type="Control" parent="BattleUI"]
 process_priority = -1
 light_mask = 8
 anchor_left = 0.052
@@ -153,20 +153,20 @@ margin_top = -39.6
 margin_right = 205.016
 margin_bottom = 21.4
 
-[node name="Attack" type="Button" parent="BattleCanvasLayer/Actions"]
+[node name="AttackButton" type="Button" parent="BattleUI/PlayerActions"]
 show_behind_parent = true
 margin_right = 250.0
 margin_bottom = 50.0
 text = "Attack"
 
-[node name="DelayAttack" type="Button" parent="BattleCanvasLayer/Actions"]
+[node name="AttackButtonDelayed" type="Button" parent="BattleUI/PlayerActions"]
 show_behind_parent = true
 margin_top = 50.0
 margin_right = 250.0
 margin_bottom = 100.0
 text = "Delayed Attack"
 
-[node name="TurnTrackerLabel" type="Label" parent="BattleCanvasLayer"]
+[node name="TurnTrackerLabel" type="Label" parent="BattleUI"]
 light_mask = 863
 anchor_left = 0.5
 anchor_right = 0.5
@@ -177,25 +177,25 @@ margin_right = 100.0
 margin_bottom = 50.0
 text = "You will not see this"
 
-[node name="Panel" type="Panel" parent="BattleCanvasLayer/TurnTrackerLabel"]
+[node name="Panel" type="Panel" parent="BattleUI/TurnTrackerLabel"]
 show_behind_parent = true
 margin_left = -19.0
 margin_top = -22.0
 margin_right = 181.0
 margin_bottom = 38.0
 
-[node name="BattleEnd" type="Control" parent="BattleCanvasLayer"]
+[node name="BattleEnd" type="Control" parent="BattleUI"]
 visible = false
 margin_left = 400.0
 margin_top = 200.0
 margin_right = 650.0
 margin_bottom = 350.0
 
-[node name="ResetButton" type="Button" parent="BattleCanvasLayer/BattleEnd"]
+[node name="ResetButton" type="Button" parent="BattleUI/BattleEnd"]
 margin_right = 250.0
 margin_bottom = 150.0
 
-[node name="ResetButtonLabel" type="Label" parent="BattleCanvasLayer/BattleEnd"]
+[node name="ResetButtonLabel" type="Label" parent="BattleUI/BattleEnd"]
 margin_right = 250.0
 margin_bottom = 150.0
 align = 1
@@ -211,7 +211,6 @@ tile_data = PoolIntArray( -131071, 4, 0, -131070, 4, 0, -131061, 4, 0, -131060, 
 visible = false
 position = Vector2( 124, 449 )
 
-[connection signal="pressed" from="BattleCanvasLayer/Actions/Attack" to="." method="_on_Attack_pressed"]
-[connection signal="pressed" from="BattleCanvasLayer/Actions/DelayAttack" to="." method="_on_DelayAttackl_pressed"]
-[connection signal="pressed" from="BattleCanvasLayer/BattleEnd/ResetButton" to="." method="_on_ResetButton_pressed"]
-[connection signal="reaction_test_done" from="ReactionTest" to="." method="_on_ReactionTest_reaction_test_done"]
+[connection signal="pressed" from="BattleUI/PlayerActions/AttackButton" to="." method="_on_AttackButton_pressed"]
+[connection signal="pressed" from="BattleUI/PlayerActions/AttackButtonDelayed" to="." method="_on_AttackButtonDelayed_pressed"]
+[connection signal="pressed" from="BattleUI/BattleEnd/ResetButton" to="." method="_on_ResetButton_pressed"]

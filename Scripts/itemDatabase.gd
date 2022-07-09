@@ -1,6 +1,5 @@
-extends Node
-
 class_name ItemDatabase
+extends Node
 
 
 class item:

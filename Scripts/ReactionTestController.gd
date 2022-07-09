@@ -4,7 +4,7 @@ signal reaction_test_done
 
 var timer: float
 #Time when timer stopped. Attack types edit this when sending it to the battleController
-var timer_stopped: float
+var reaction_delta: float
 
 var is_running: bool = false
 var target_time: float
@@ -21,7 +21,7 @@ var delayed_wait: int = 2
 
 var random_target_time = RandomNumberGenerator.new()
 
-var invisibile_timer: float
+var invisible_timer: float
 
 
 func _ready():
@@ -42,19 +42,19 @@ func _physics_process(delta):
 		timer += delta
 	if is_running:
 		if type_of_attack == 2:
-			$ReactionTestButtonLabel.text = str("React after ", delayed_wait, " seconds")
+			$ReactionLabel.text = str("React after ", delayed_wait, " seconds")
 	if timer >= target_time:
 		$ReactionButton.modulate = "bb4444"
 	if !is_running && timer > 0.0001 && type_of_attack == 1:
-		timer_stopped = (timer - target_time) * .75
-		$ReactionTestButtonLabel.text = str("You reacted in ", stepify(timer_stopped, .001))
+		reaction_delta = (timer - target_time) * .75
+		$ReactionLabel.text = str("You reacted in ", stepify(reaction_delta, .001))
 		turn_invisible(delta)
 	if !is_running && timer > 0.0001 && type_of_attack == 2:
-		timer_stopped = timer - target_time - delayed_wait
-		if timer_stopped < 0:
-			timer_stopped = timer_stopped * -1
-		$ReactionTestButtonLabel.text = str(
-			"You reacted ", stepify(timer_stopped, .001), " off of the target goal"
+		reaction_delta = timer - target_time - delayed_wait
+		if reaction_delta < 0:
+			reaction_delta = reaction_delta * -1
+		$ReactionLabel.text = str(
+			"You reacted ", stepify(reaction_delta, .001), " off of the target goal"
 		)
 		turn_invisible(delta)
 
@@ -64,10 +64,10 @@ func type_of_reaction_attack(attack_type):
 
 
 func turn_invisible(delta):
-	invisibile_timer += delta
-	if invisibile_timer > time_until_invisible:
+	invisible_timer += delta
+	if invisible_timer > time_until_invisible:
 		restart_timer()
-		invisibile_timer = 0
+		invisible_timer = 0
 		self.visible = false
 		emit_signal("reaction_test_done")
 
@@ -75,15 +75,15 @@ func turn_invisible(delta):
 # resets the reaction test by setting timers to 0 and changes the goal.
 func restart_timer():
 	$ReactionButton.modulate = "ffffff"
-	$ReactionTestButtonLabel.text = "React"
+	$ReactionLabel.text = "React"
 	timer = 0
 	set_target_time()
-	timer_stopped = 0
 	type_of_attack = 0
 	print("We got to restart timer")
 
 
 func start_timer():
+	reaction_delta = 0
 	self.visible = true
 	is_running = true
 

@@ -1,6 +1,5 @@
-extends Node
-
 class_name BattleEntity
+extends Node
 
 var char_name: String
 var alignment: String = "neutral"
