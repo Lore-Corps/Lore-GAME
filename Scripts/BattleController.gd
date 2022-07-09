@@ -12,10 +12,10 @@ export(PackedScene) var enemy_scene
 
 # ----- public vars -----
 var reaction: Node
+var reaction_test_delta: float
 var good_battlers: Array
 var evil_battlers: Array
 var all_battlers: Array
-var reaction_test_delta: float
 var random_color: Color
 var color_timer: float
 var rng := RandomNumberGenerator.new()
@@ -124,7 +124,6 @@ func start_battle() -> void:
 # Governs AI turn logic, gives a random AI decision for a battler
 func ai_logic_for_turn(battler) -> void:
 	var target: BattleEntity = find_front_target(good_battlers)
-	print(str(target) + " target")
 	if target != null:
 		rng.randomize()
 		var random = rng.randi_range(0, 100)
@@ -142,11 +141,8 @@ func ai_logic_for_turn(battler) -> void:
 
 # Governs Player turn logic
 func player_logic_for_turn(battler) -> void:
-	print(battler.char_name)
 	reaction_test_delta = reaction.reaction_delta
-	find_front_target(evil_battlers).take_damage(
-		find_front_target(good_battlers).get_strength() / reaction.reaction_delta
-	)
+	find_front_target(evil_battlers).take_damage(battler.get_strength() / reaction_test_delta)
 
 
 # Finds the front target on a team
