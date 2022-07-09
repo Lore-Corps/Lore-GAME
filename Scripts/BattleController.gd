@@ -4,7 +4,7 @@ extends Node2D
 # ----- enums -----
 # ----- constants -----
 # Must be greater than 0
-var MAXIMUM_TEAM_SIZE: int = 2
+var MAXIMUM_TEAM_SIZE: int = 1
 
 # ----- exported vars -----
 export(PackedScene) var player_scene
@@ -26,13 +26,7 @@ var rng := RandomNumberGenerator.new()
 
 # ----- built-in virtual _ready method -----
 func _ready() -> void:
-	# For loop executes 3 times and registers players, x var does nothing
-	for x in MAXIMUM_TEAM_SIZE:
-		register_battler(player_scene)
-		register_battler(enemy_scene)
-
-	construct_scene()
-	start_battle()
+	pass
 
 
 # ----- remaining built-in virtual methods -----
@@ -45,6 +39,17 @@ func _process(delta) -> void:
 
 
 # ----- public methods -----
+
+
+func start_scene() -> void:
+	# For loop executes 3 times and registers players, x var does nothing
+	for x in MAXIMUM_TEAM_SIZE:
+		register_battler(player_scene)
+		register_battler(enemy_scene)
+	construct_scene()
+	start_battle()
+
+
 # Turns PackedScenes into instances and pushes them to the team arrays
 func register_battler(battler: PackedScene) -> void:
 	var battler_instance = battler.instance()
@@ -83,6 +88,10 @@ func construct_scene() -> void:
 		battler.position = Vector2(x_coord_bad_team, y_coord)
 		x_coord_bad_team += offset
 
+	self.visible = true
+	$BattleUI/PlayerActions.visible = true
+	$BattleUI/TurnTrackerLabel.visible = true
+	$TileMap.visible = true
 	reaction = $ReactionTest
 
 
@@ -216,8 +225,12 @@ func _on_AttackButtonDelayed_pressed() -> void:
 
 
 func _on_ResetButton_pressed() -> void:
-	$BattleUI/BattleEnd.visible = false
 	if $ReactionTest.type_of_attack == 0:
+		self.visible = false
+		for child in $BattleUI.get_children():
+			child.visible = false
+		$BattleUI/BattleEnd.visible = false
+		$TileMap.visible = false
 		for battler in all_battlers:
 			battler.queue_free()
 		good_battlers = []
