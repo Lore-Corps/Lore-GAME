@@ -196,7 +196,7 @@ func win_battle(winning_team_member: BattleEntity) -> void:
 	if winning_team_member.alignment == "good":
 		$BattleUI/BattleEnd/ResetButtonLabel.text = ("You did it!\nYou beat Brad the Madlad and saved the world")
 	elif winning_team_member.alignment == "evil":
-		$BattleUI/BattleEnd/ResetButtonLabel.text = ("Brad the Madlad goes on to kill everyone you love, you could've save everyone... \nBut hey! Think of the benifits of being dead. You no longer have to pay off your debts.")
+		$BattleUI/BattleEnd/ResetButtonLabel.text = ("Brad the Madlad goes on to kill everyone you love, you could've saved everyone... \nBut hey! Think of the benefits of being dead. You no longer have to pay off your debts.")
 
 
 func is_team_dead(team) -> bool:
