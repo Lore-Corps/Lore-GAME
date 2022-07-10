@@ -23,3 +23,4 @@ tile_data = PoolIntArray( 655384, 0, 9, 655385, 0, 10, 655386, 0, 11, 720904, 0,
 
 [node name="OverworldPlayer" parent="." instance=ExtResource( 4 )]
 position = Vector2( 268, 310 )
+scale = Vector2( 10, 10 )

@@ -215,14 +215,14 @@ func _on_AttackButton_pressed() -> void:
 	$BattleUI/PlayerActions.visible = false
 	reaction.type_of_reaction_attack(1)
 	if find_active_target(all_battlers).alignment == "good":
-		reaction.start_timer()
+		reaction.start_timer(0)
 
 
 func _on_AttackButtonDelayed_pressed() -> void:
 	$BattleUI/PlayerActions.visible = false
-	reaction.type_of_reaction_attack(2)
+	reaction.type_of_reaction_attack(1)
 	if find_active_target(good_battlers).is_active:
-		reaction.start_timer()
+		reaction.start_timer(2)
 
 
 func _on_ResetButton_pressed() -> void:
