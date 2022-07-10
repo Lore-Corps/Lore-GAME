@@ -22,3 +22,6 @@ text = "Player"
 visible = false
 position = Vector2( 0, 100 )
 texture = ExtResource( 3 )
+
+[connection signal="mouse_entered" from="PlayerInfoLabel" to="." method="_on_PlayerInfoLabel_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerInfoLabel" to="." method="_on_PlayerInfoLabel_mouse_exited"]

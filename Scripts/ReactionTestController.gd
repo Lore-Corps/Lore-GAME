@@ -47,11 +47,11 @@ func _physics_process(delta):
 			$ReactionLabel.text = str("React after ", delayed_wait, " seconds")
 	if timer >= target_time:
 		$ReactionButton.modulate = "bb4444"
-	if !is_running && timer > 0.0001 && type_of_attack == 1:
+	if not is_running and timer > 0.0001 and type_of_attack == 1:
 		reaction_delta = (timer - target_time) * .75
 		$ReactionLabel.text = str("You reacted in ", stepify(reaction_delta, .001))
 		turn_invisible(delta)
-	if !is_running && timer > 0.0001 && type_of_attack == 2:
+	if not is_running and timer > 0.0001 and type_of_attack == 2:
 		reaction_delta = timer - target_time - delayed_wait
 		if reaction_delta < 0:
 			reaction_delta = reaction_delta * -1
