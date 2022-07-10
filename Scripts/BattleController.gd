@@ -26,6 +26,7 @@ var rng := RandomNumberGenerator.new()
 
 # ----- built-in virtual _ready method -----
 func _ready() -> void:
+	start_scene()
 	pass
 
 
@@ -140,7 +141,7 @@ func ai_logic_for_turn(battler) -> void:
 		if random < 10:
 			print("Brad crit")
 			target.take_damage(battler.get_strength() * 2)
-		if random < 75:
+		if random < 80:
 			print("brad attacked")
 			target.take_damage(battler.get_strength())
 		else:

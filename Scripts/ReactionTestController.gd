@@ -13,10 +13,12 @@ var target_time: float
 # this is if the player waits too long without hitting the button
 var critical_failure_time: float
 
-var time_until_invisible: int = 2
+var time_until_invisible: int = 1
 
 # 0 is no attack. 1 is attack. 2 is delayed attack
 var type_of_attack: int
+
+
 var delayed_wait: int = 2
 
 var random_target_time = RandomNumberGenerator.new()
@@ -79,7 +81,6 @@ func restart_timer():
 	timer = 0
 	set_target_time()
 	type_of_attack = 0
-	print("We got to restart timer")
 
 
 func start_timer():

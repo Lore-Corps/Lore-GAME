@@ -22,7 +22,7 @@ func reset() -> void:
 func randomize_stats() -> void:
 	rng.randomize()
 	agility = rng.randi_range(5, 20)
-	intelligence = rng.randi_range(5, 20)
-	strength = rng.randi_range(5, 20)
-	max_health = rng.randi_range(50, 200)
+	intelligence = rng.randi_range(8, 20)
+	strength = rng.randi_range(8, 20)
+	max_health = rng.randi_range(80, 200)
 	current_health = max_health
