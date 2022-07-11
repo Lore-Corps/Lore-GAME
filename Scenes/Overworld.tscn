@@ -34,3 +34,10 @@ position = Vector2( 407, 329 )
 [node name="OverworldMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -20.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 362.0
+margin_top = 310.0
+margin_right = 455.0
+margin_bottom = 378.0
+text = "Walk around here to battle!"
