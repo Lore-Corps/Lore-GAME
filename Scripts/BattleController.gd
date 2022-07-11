@@ -128,7 +128,7 @@ func start_battle() -> void:
 				# Evil Turn
 				if battler.alignment == "evil":
 					$BattleUI/PlayerActions.visible = false
-					yield(get_tree().create_timer(1.0), "timeout")
+					yield(get_tree().create_timer(2.0), "timeout")
 					ai_logic_for_turn(battler)
 
 				if is_team_dead(good_battlers) or is_team_dead(evil_battlers):
