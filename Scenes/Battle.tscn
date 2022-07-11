@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/icon.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/ReactionTest.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/BattleController.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Music/Ryuichi_Sakamoto_Fanclub_Track_1.mp3" type="AudioStream" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -213,6 +214,10 @@ tile_data = PoolIntArray( -131071, 4, 0, -131070, 4, 0, -131061, 4, 0, -131060, 
 [node name="ReactionTest" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 124, 449 )
+
+[node name="BattleMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.101
 
 [connection signal="pressed" from="BattleUI/PlayerActions/AttackButton" to="." method="_on_AttackButton_pressed"]
 [connection signal="pressed" from="BattleUI/PlayerActions/AttackButtonDelayed" to="." method="_on_AttackButtonDelayed_pressed"]

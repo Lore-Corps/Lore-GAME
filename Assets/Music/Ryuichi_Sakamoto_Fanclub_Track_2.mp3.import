@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Ryuichi_Sakamoto_Fanclub_Track_2.mp3-c9ee22847980c6970c0db7166292dbb2.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Ryuichi_Sakamoto_Fanclub_Track_2.mp3"
+dest_files=[ "res://.import/Ryuichi_Sakamoto_Fanclub_Track_2.mp3-c9ee22847980c6970c0db7166292dbb2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

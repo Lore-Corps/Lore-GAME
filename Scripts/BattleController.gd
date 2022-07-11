@@ -45,12 +45,14 @@ func _process(delta) -> void:
 
 func start_scene() -> void:
 	# For loop executes 3 times and registers players, x var does nothing
+	$BattleMusic.playing = true
 	is_active = true
 	for x in MAXIMUM_TEAM_SIZE:
 		register_battler(player_scene)
 		register_battler(enemy_scene)
 	construct_scene()
 	start_battle()
+	
 
 
 # Turns PackedScenes into instances and pushes them to the team arrays
@@ -227,6 +229,7 @@ func _on_AttackButtonDelayed_pressed() -> void:
 
 
 func _on_ResetButton_pressed() -> void:
+	$BattleMusic.playing = false
 	self.visible = false
 	for child in $BattleUI.get_children():
 		child.visible = false
@@ -238,8 +241,6 @@ func _on_ResetButton_pressed() -> void:
 	evil_battlers = []
 	all_battlers = []
 	_ready()
-	# dumb yield to prevent another battle within 3 seconds
-	#yield(get_tree().create_timer(3.0), "timeout")
 	is_active = false
 
 
