@@ -20,6 +20,7 @@ var all_battlers: Array
 var random_color: Color
 var color_timer: float
 var rng := RandomNumberGenerator.new()
+var delayed_reaction_goal: float
 
 # ----- private vars -----
 # ----- onready vars -----
@@ -221,11 +222,11 @@ func _on_AttackButton_pressed() -> void:
 	if find_active_target(all_battlers).alignment == "good":
 		reaction_test.start()
 
-
 func _on_AttackButtonDelayed_pressed() -> void:
 	$BattleUI/PlayerActions.visible = false
 	if find_active_target(good_battlers).is_active:
-		reaction_test.start(2)
+		delayed_reaction_goal = rng.randf_range(0.7, 4.2)
+		reaction_test.start(stepify(delayed_reaction_goal, .1))
 
 
 func _on_ResetButton_pressed() -> void:
