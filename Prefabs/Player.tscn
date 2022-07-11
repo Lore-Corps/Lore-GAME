@@ -18,6 +18,11 @@ margin_right = 58.0
 margin_bottom = -45.0
 text = "Player"
 
+[node name="Panel" type="Panel" parent="PlayerInfoLabel"]
+show_behind_parent = true
+margin_right = 119.0
+margin_bottom = 119.0
+
 [node name="ActiveSprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 0, 100 )
