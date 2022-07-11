@@ -135,6 +135,7 @@
 8/z_index = 0
 
 [node name="Battle" type="Node2D"]
+visible = false
 script = ExtResource( 5 )
 player_scene = ExtResource( 2 )
 enemy_scene = ExtResource( 4 )
@@ -143,6 +144,7 @@ enemy_scene = ExtResource( 4 )
 
 [node name="PlayerActions" type="Control" parent="BattleUI"]
 process_priority = -1
+visible = false
 light_mask = 8
 anchor_left = 0.052
 anchor_top = 0.816
@@ -167,6 +169,7 @@ margin_bottom = 100.0
 text = "Delayed Attack"
 
 [node name="TurnTrackerLabel" type="Label" parent="BattleUI"]
+visible = false
 light_mask = 863
 anchor_left = 0.5
 anchor_right = 0.5

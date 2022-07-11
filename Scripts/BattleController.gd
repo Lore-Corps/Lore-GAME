@@ -11,7 +11,8 @@ export(PackedScene) var player_scene
 export(PackedScene) var enemy_scene
 
 # ----- public vars -----
-var reaction: Node
+var is_active: bool
+var reaction_test: Node
 var reaction_test_delta: float
 var good_battlers: Array
 var evil_battlers: Array
@@ -26,7 +27,7 @@ var rng := RandomNumberGenerator.new()
 
 # ----- built-in virtual _ready method -----
 func _ready() -> void:
-	start_scene()
+	#start_scene()
 	pass
 
 
@@ -44,6 +45,7 @@ func _process(delta) -> void:
 
 func start_scene() -> void:
 	# For loop executes 3 times and registers players, x var does nothing
+	is_active = true
 	for x in MAXIMUM_TEAM_SIZE:
 		register_battler(player_scene)
 		register_battler(enemy_scene)
@@ -90,10 +92,11 @@ func construct_scene() -> void:
 		x_coord_bad_team += offset
 
 	self.visible = true
-	$BattleUI/PlayerActions.visible = true
-	$BattleUI/TurnTrackerLabel.visible = true
+	for child in $BattleUI.get_children():
+		child.visible = true
 	$TileMap.visible = true
-	reaction = $ReactionTest
+	$BattleUI/BattleEnd.visible = false
+	reaction_test = $ReactionTest
 
 
 # Starts the battle and manages the turn order
@@ -151,8 +154,8 @@ func ai_logic_for_turn(battler) -> void:
 
 # Governs Player turn logic
 func player_logic_for_turn(battler) -> void:
-	reaction_test_delta = reaction.reaction_delta
-	find_front_target(evil_battlers).take_damage(battler.get_strength() / reaction_test_delta)
+	reaction_test_delta = reaction_test.timestamp_delta
+	find_front_target(evil_battlers).take_damage(battler.calculate_damage(reaction_test_delta))
 
 
 # Finds the front target on a team
@@ -213,33 +216,31 @@ func is_team_dead(team) -> bool:
 # ----- private methods -----
 func _on_AttackButton_pressed() -> void:
 	$BattleUI/PlayerActions.visible = false
-	reaction.type_of_reaction_attack(1)
 	if find_active_target(all_battlers).alignment == "good":
-		reaction.start_timer(0)
+		reaction_test.start()
 
 
 func _on_AttackButtonDelayed_pressed() -> void:
 	$BattleUI/PlayerActions.visible = false
-	reaction.type_of_reaction_attack(1)
 	if find_active_target(good_battlers).is_active:
-		reaction.start_timer(2)
+		reaction_test.start(2)
 
 
 func _on_ResetButton_pressed() -> void:
-	if $ReactionTest.type_of_attack == 0:
-		self.visible = false
-		for child in $BattleUI.get_children():
-			child.visible = false
-		$BattleUI/BattleEnd.visible = false
-		$TileMap.visible = false
-		for battler in all_battlers:
-			battler.queue_free()
-		good_battlers = []
-		evil_battlers = []
-		all_battlers = []
-		_ready()
-	else:
-		print("Please wait")
+	self.visible = false
+	for child in $BattleUI.get_children():
+		child.visible = false
+	$BattleUI/BattleEnd.visible = false
+	$TileMap.visible = false
+	for battler in all_battlers:
+		battler.queue_free()
+	good_battlers = []
+	evil_battlers = []
+	all_battlers = []
+	_ready()
+	# dumb yield to prevent another battle within 3 seconds
+	#yield(get_tree().create_timer(3.0), "timeout")
+	is_active = false
 
 
 # The higher Agillity with be first in the Array.

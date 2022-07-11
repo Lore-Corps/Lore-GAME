@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Lore GAME"
-run/main_scene="res://Scenes/Battle.tscn"
+run/main_scene="res://Scenes/Overworld.tscn"
 config/icon="res://Assets/icon.png"
 
 [global]
