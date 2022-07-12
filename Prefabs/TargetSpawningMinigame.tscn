@@ -8,6 +8,7 @@
 [node name="TargetContainer" type="Container" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
+mouse_filter = 2
 script = ExtResource( 2 )
 player_target_node = ExtResource( 3 )
 
