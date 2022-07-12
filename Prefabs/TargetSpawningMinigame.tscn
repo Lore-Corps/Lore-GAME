@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/TargetSpawningController.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/PlayerTarget.tscn" type="PackedScene" id=3]
+
+[node name="TargetSpawningMinigame" type="Node2D"]
+
+[node name="TargetContainer" type="Container" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 2 )
+player_target_node = ExtResource( 3 )
+
+[node name="StartTargetSpawningButton" type="Button" parent="TargetContainer"]
+margin_left = 44.0
+margin_top = 567.0
+margin_right = 203.0
+margin_bottom = 598.0
+text = "Start Spawning Targets"
+
+[node name="PlayerTarget" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[connection signal="pressed" from="TargetContainer/StartTargetSpawningButton" to="TargetContainer" method="_on_StartTargetSpawningButton_pressed"]
