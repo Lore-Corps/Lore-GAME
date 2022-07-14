@@ -19,9 +19,6 @@ margin_right = 203.0
 margin_bottom = 598.0
 text = "Start Spawning Targets"
 
-[node name="PlayerTarget" parent="." instance=ExtResource( 3 )]
-visible = false
-
 [node name="TargetsDestroyedCounterLabel" type="RichTextLabel" parent="."]
 margin_left = 205.0
 margin_top = 567.0
@@ -29,4 +26,3 @@ margin_right = 442.0
 margin_bottom = 596.0
 
 [connection signal="pressed" from="TargetContainer/StartTargetSpawningButton" to="TargetContainer" method="_on_StartTargetSpawningButton_pressed"]
-[connection signal="target_destroyed" from="PlayerTarget" to="TargetContainer" method="_on_PlayerTarget_target_destroyed"]
