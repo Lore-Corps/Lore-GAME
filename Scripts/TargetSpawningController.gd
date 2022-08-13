@@ -5,10 +5,9 @@ export(PackedScene) var player_target_node
 
 var target: Node
 
-var timer: float
+var target_spawn_timer := Timer.new()
 
 var number_of_active_targets: int
-var number_of_targets_destroyed: int
 
 var game_running: bool = false
 
@@ -17,59 +16,62 @@ var rng := RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	rng.randomize()
+	create_target_timer()
 
 
-func _process(delta) -> void:
-	timer -= delta
+func _process(_delta) -> void:
+	
 	if game_running:
-		# Spawns a target at random intervals
-		if timer < 0:
-			create_target()
-			timer = rng.randf_range(0.5, 0.7)
-			# easy way to keep track of how maybe targets are active. 
-			# Scene currently has a button to start the game, so we -1
+		
+		# Sets a time for a target to be spawned in.
+		# When the timer runs out it calls _on_timer_timeout()
+		if target_spawn_timer.is_stopped() == true:
+			target_spawn_timer.set_wait_time(rng.randf_range(0.4, 0.7))
+			target_spawn_timer.start()
+		# easy way to keep track of how maybe targets are active. 
+		# the -1 is for the Timer that is always an child 
 		number_of_active_targets = get_child_count() -1
-		if number_of_active_targets > 10:
+		if number_of_active_targets >= 10:
 			end_target_minigame()
-			
+
+func create_target_timer() -> void:
+	add_child(target_spawn_timer, true)
+	target_spawn_timer.connect("timeout", self, "_on_timer_timeout")
+	target_spawn_timer.one_shot = true
+
+func start_target_minigame() -> void:
+	game_running = true
+
+
+func _on_timer_timeout():
+	# It kept spawning a target after the games ends, and I'm trying to debug 
+	# something else right now. SO STOP ANNOYING ME BITCH
+	if game_running:
+		create_target()
+
 
 # Does what it says.
 # TODO add a negitive if the player fails. The idea we are thinking about is using
 # this as a status effect and having the player take big damage on failure.
 func end_target_minigame() -> void:
 	print("You suck")
+	print(number_of_active_targets, " Num of active targets")
 	game_running = false
-	$StartTargetSpawningButton.visible = true
 	for child in get_children():
-		if child.name != "StartTargetSpawningButton":
+		print(child)
+		if child.name != "Timer":
 			child.queue_free()
 	
 
-# Spawns a target at a random location. 
 # TODO maybe make them move at random aswell and Make it not spawn on top of the
 # attack and delayed attack button. 
 func create_target() -> void:
 	target = player_target_node.instance()
 	add_child(target)
 	target.position = Vector2(rng.randf_range(100, 900), rng.randf_range(50, 500))
-	target.connect("target_destroyed", self, "_on_PlayerTarget_target_destroyed")
+	#target.connect("target_destroyed", self, "_on_PlayerTarget_target_destroyed")
 	print("We created a Target")
 
-# The child button starts the minigame right now, this will be removed in the future
-# when we make this start via the enemyEnitity
-func _on_StartTargetSpawningButton_pressed() -> void:
-	if number_of_targets_destroyed != 0:
-		reset_target_minigame()
-	game_running = true
-	$StartTargetSpawningButton.visible = false
 
 func reset_target_minigame() -> void:
-	timer = 0.5
 	number_of_active_targets = get_child_count() -1
-	number_of_targets_destroyed = 0
-	get_parent().get_node("TargetsDestroyedCounterLabel").text = str(number_of_targets_destroyed, " targets destroyed")
-
-
-func _on_PlayerTarget_target_destroyed() -> void:
-	number_of_targets_destroyed += 1
-	get_parent().get_node("TargetsDestroyedCounterLabel").text = str(number_of_targets_destroyed, " targets destroyed")

@@ -147,11 +147,12 @@ func ai_logic_for_turn(battler) -> void:
 		if random < 10:
 			print("Brad crit")
 			target.take_damage(battler.get_strength() * 2)
-		if random < 80:
+		if random < 40:
 			print("brad attacked")
 			target.take_damage(battler.get_strength())
 		else:
-			print("brad healed")
+			print("brad healed and casted a spell")
+			$TargetSpawningMinigame.get_node("TargetContainer").start_target_minigame()
 			battler.heal()
 
 
