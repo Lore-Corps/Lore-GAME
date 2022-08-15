@@ -26,7 +26,7 @@ func _process(_delta) -> void:
 		# Sets a time for a target to be spawned in.
 		# When the timer runs out it calls _on_timer_timeout()
 		if target_spawn_timer.is_stopped() == true:
-			target_spawn_timer.set_wait_time(rng.randf_range(0.4, 0.7))
+			target_spawn_timer.set_wait_time(rng.randf_range(0.7, 1))
 			target_spawn_timer.start()
 		# easy way to keep track of how maybe targets are active. 
 		# the -1 is for the Timer that is always an child 
@@ -54,14 +54,10 @@ func _on_timer_timeout():
 # TODO add a negitive if the player fails. The idea we are thinking about is using
 # this as a status effect and having the player take big damage on failure.
 func end_target_minigame() -> void:
-	print("You suck")
-	print(number_of_active_targets, " Num of active targets")
 	game_running = false
 	for child in get_children():
-		print(child)
 		if child.name != "Timer":
 			child.queue_free()
-	
 
 # TODO maybe make them move at random aswell and Make it not spawn on top of the
 # attack and delayed attack button. 
@@ -69,9 +65,8 @@ func create_target() -> void:
 	target = player_target_node.instance()
 	add_child(target)
 	target.position = Vector2(rng.randf_range(100, 900), rng.randf_range(50, 500))
-	#target.connect("target_destroyed", self, "_on_PlayerTarget_target_destroyed")
-	print("We created a Target")
 
 
 func reset_target_minigame() -> void:
 	number_of_active_targets = get_child_count() -1
+	

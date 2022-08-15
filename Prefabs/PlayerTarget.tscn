@@ -16,8 +16,7 @@ margin_right = 60.0
 margin_bottom = 60.0
 
 [node name="TargetSprite" type="Sprite" parent="Control"]
-position = Vector2( -1, -1 )
-scale = Vector2( 0.238281, 0.238281 )
+scale = Vector2( 0.234375, 0.234375 )
 texture = ExtResource( 2 )
 centered = false
 region_rect = Rect2( 60, 60, 0, 0 )

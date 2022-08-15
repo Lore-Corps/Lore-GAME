@@ -24,7 +24,6 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	if is_running:
 		countdown_timer -= delta
-		print(countdown_timer)
 
 		if countdown_timer <= 0:
 			$ReactionButton.modulate = reaction_alert_color

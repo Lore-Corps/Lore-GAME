@@ -147,7 +147,7 @@ func ai_logic_for_turn(battler) -> void:
 		if random < 10:
 			print("Brad crit")
 			target.take_damage(battler.get_strength() * 2)
-		if random < 40:
+		if random < 10:
 			print("brad attacked")
 			target.take_damage(battler.get_strength())
 		else:
