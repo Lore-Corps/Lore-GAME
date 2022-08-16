@@ -29,6 +29,7 @@ position = Vector2( 268, 310 )
 
 [node name="FightTrigger" parent="." instance=ExtResource( 5 )]
 position = Vector2( 407, 329 )
+TIMER_MAX = 0
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 

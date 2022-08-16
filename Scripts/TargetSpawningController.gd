@@ -23,7 +23,7 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	
 	if game_running:
-		
+	
 		# Sets a time for a target to be spawned in.
 		# When the timer runs out it calls _on_timer_timeout()
 		if target_spawn_timer.is_stopped() == true:
