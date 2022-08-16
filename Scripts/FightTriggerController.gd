@@ -1,7 +1,7 @@
 extends Area2D
 
 var rng := RandomNumberGenerator.new()
-var TIMER_MAX = 1
+export var TIMER_MAX = 1
 var timer: float = TIMER_MAX
 
 var active: bool = false

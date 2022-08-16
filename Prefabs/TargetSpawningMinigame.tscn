@@ -11,6 +11,7 @@ margin_bottom = 600.0
 mouse_filter = 2
 script = ExtResource( 2 )
 player_target_node = ExtResource( 3 )
+max_targets_till_failure = 1000
 
 [node name="TargetsDestroyedCounterLabel" type="RichTextLabel" parent="."]
 margin_left = 205.0

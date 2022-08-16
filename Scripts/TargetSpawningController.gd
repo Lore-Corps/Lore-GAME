@@ -8,6 +8,7 @@ var target: Node
 var target_spawn_timer := Timer.new()
 
 var number_of_active_targets: int
+export var max_targets_till_failure = 10
 
 var game_running: bool = false
 

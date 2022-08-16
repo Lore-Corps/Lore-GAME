@@ -11,11 +11,11 @@ var alignment: String = "neutral"
 # Stength for now just deals damage.
 # Intelligence is for healing. Currently only Enemy Entity have a heal
 # Agility is for turn order.
-var max_health: int = 100
-var current_health: int = 100
-var strength: int = 10
-var intelligence: int = 10
-var agility: int = 10
+export var max_health: int = 100
+export var current_health: int = 100
+export var strength: int = 10
+export var intelligence: int = 10
+export var agility: int = 10
 
 # flags
 var is_alive: bool = true
