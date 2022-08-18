@@ -155,11 +155,13 @@ margin_left = 71.752
 margin_top = -39.6
 margin_right = 205.016
 margin_bottom = 21.4
+mouse_filter = 2
 
 [node name="AttackButton" type="Button" parent="BattleUI/PlayerActions"]
 show_behind_parent = true
 margin_right = 250.0
 margin_bottom = 50.0
+mouse_filter = 1
 text = "Attack"
 
 [node name="AttackButtonDelayed" type="Button" parent="BattleUI/PlayerActions"]
@@ -167,6 +169,7 @@ show_behind_parent = true
 margin_top = 50.0
 margin_right = 250.0
 margin_bottom = 100.0
+mouse_filter = 1
 text = "Delayed Attack"
 
 [node name="TurnTrackerLabel" type="Label" parent="BattleUI"]
@@ -187,6 +190,7 @@ margin_left = -19.0
 margin_top = -22.0
 margin_right = 181.0
 margin_bottom = 38.0
+mouse_filter = 2
 
 [node name="BattleEnd" type="Control" parent="BattleUI"]
 visible = false
